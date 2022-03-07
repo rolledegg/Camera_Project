@@ -1,10 +1,13 @@
 package smu.app.myapplication
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import kotlin.math.pow
 
 class ResultActivity : AppCompatActivity() {
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
@@ -22,6 +25,12 @@ class ResultActivity : AppCompatActivity() {
             bmi >= 18.5 -> "정상 체중"
             else -> "저체중"
         }
+
+        val bmiResultTextView : TextView = findViewById(R.id.bmiTextView)
+        val weightResultTextView : TextView = findViewById(R.id.bmiResultTextView)
+
+        bmiResultTextView.text = bmi.toString()
+        weightResultTextView.text = resultText + "입니다."
 
     }
 }
