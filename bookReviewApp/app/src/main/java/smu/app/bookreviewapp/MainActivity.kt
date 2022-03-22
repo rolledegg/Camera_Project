@@ -1,5 +1,6 @@
 package smu.app.bookreviewapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -62,7 +63,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initBookRecyclerView(){
-        adapter = BookAdapter()
+        adapter = BookAdapter(clickListener = {
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("text","hello web")
+            //intent.putExtra("bookModel", it)
+            startActivity(intent)
+        })
+
         binding.bookRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.bookRecyclerView.adapter = adapter
 

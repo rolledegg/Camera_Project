@@ -5,15 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import smu.app.bookreviewapp.databinding.ItemBookBinding
 import smu.app.bookreviewapp.model.Book
 
 
-class BookAdapter: ListAdapter<Book, BookAdapter.BookItemViewHolder> (diffUtil){
+class BookAdapter(val clickListener: (Book) -> Unit): ListAdapter<Book, BookAdapter.BookItemViewHolder> (diffUtil){
     inner class BookItemViewHolder(private val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root){
         // 데이터를 가져와서 바인드해주는 역할의 함수
         fun bind(bookModel:Book){
             binding.titleTextView.text = bookModel.title
+            binding.discriptionTextView.text = bookModel.description
+
+            Glide
+                .with(binding.coverImageView.context)
+                .load(bookModel.coverSmallUrl)
+                .into(binding.coverImageView)
+
+            binding.root.setOnClickListener {
+                clickListener(bookModel)
+            }
         }
     }
 
